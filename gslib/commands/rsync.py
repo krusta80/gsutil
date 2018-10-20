@@ -104,7 +104,7 @@ _DETAILED_HELP_TEXT = ("""
 """ + _SYNOPSIS + """
 
 
-<B>DESCRIPTION</B>
+<B>DESCRIPTION (hi)</B>
   The gsutil rsync command makes the contents under dst_url the same as the
   contents under src_url, by copying any missing files/objects (or those whose
   data has changed), and (if the -d option is specified) deleting any extra
