@@ -713,7 +713,9 @@ def _FieldedListingIterator(cls, gsutil_api, base_url_str, desc):
       if cls.exclude_pattern.match(str_to_check):
         continue
     # For HAF purposes: ignore broken symbolic links!  :)
-    if (os.path.islink(url.url_string) and not os.path.exists(url.url_string)):
+    if (url.IsFileUrl() 
+        and os.path.islink(url.object_name) 
+        and not os.path.exists(url.object_name)):
       print("Bad link: ".url.object_name)
       continue
     i += 1
