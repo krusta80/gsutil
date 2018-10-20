@@ -634,15 +634,15 @@ class FileWildcardIterator(WildcardIterator):
     walk4Tuples = map(lambda x: [x[0], x[1], x[2], 0], os.walk(directory.encode(UTF8)))
     for dirpath, dirnames, filenames, level in walk4Tuples:
       for dirname in dirnames:
-          full_dir_path = os.path.join(dirpath, dirname)
-        if os.path.islink(full_dir_path) and level < SYMBOLIC_LINK_MAX_DEPTH:
+        full_dir_path = os.path.join(dirpath, dirname)
+          if os.path.islink(full_dir_path) and level < SYMBOLIC_LINK_MAX_DEPTH:
             print('Found symlink directory "%s"', full_dir_path)
             walk4Tuples.extend( 
               map(lambda x: [x[0], x[1], x[2], level + 1], os.walk(full_dir_path.encode(UTF8))))
-        if self.logger:
-          if os.path.islink(full_dir_path) and level == SYMBOLIC_LINK_MAX_DEPTH:
-            print('Skipping symlink directory "%s"', full_dir_path)
-            self.logger.info('Skipping symlink directory "%s"', full_dir_path)
+          if self.logger:
+            if os.path.islink(full_dir_path) and level == SYMBOLIC_LINK_MAX_DEPTH:
+              print('Skipping symlink directory "%s"', full_dir_path)
+              self.logger.info('Skipping symlink directory "%s"', full_dir_path)
 
       for f in fnmatch.filter(filenames, wildcard):
         try:
