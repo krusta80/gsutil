@@ -639,8 +639,8 @@ class FileWildcardIterator(WildcardIterator):
           if os.path.islink(full_dir_path) and level == SYMBOLIC_LINK_MAX_DEPTH:
             self.logger.info('Skipping symlink directory "%s"', full_dir_path)
           if os.path.islink(full_dir_path) and level < SYMBOLIC_LINK_MAX_DEPTH:
-            walk4Tuples = walk4Tuples + 
-              map(lambda x: [x[0], x[1], x[2], level + 1], os.walk(full_dir_path.encode(UTF8)))
+            walk4Tuples.extend( 
+              map(lambda x: [x[0], x[1], x[2], level + 1], os.walk(full_dir_path.encode(UTF8))))
       for f in fnmatch.filter(filenames, wildcard):
         try:
           yield os.path.join(dirpath,
