@@ -698,7 +698,9 @@ def _FieldedListingIterator(cls, gsutil_api, base_url_str, desc):
     # from GCS to a local directory it will result in a directory/file
     # conflict (e.g., trying to download an object called "mydata/" where the
     # local directory "mydata" exists).
+    print("gah")
     url = blr.storage_url
+    print("Trying: " + url.object_name)
     if IsCloudSubdirPlaceholder(url, blr=blr):
       # We used to output the message 'Skipping cloud sub-directory placeholder
       # object...' but we no longer do so because it caused customer confusion.
@@ -713,7 +715,6 @@ def _FieldedListingIterator(cls, gsutil_api, base_url_str, desc):
       if cls.exclude_pattern.match(str_to_check):
         continue
     # For HAF purposes: ignore broken symbolic links!  :)
-    print("Trying: " + url.object_name)
     if (url.IsFileUrl() 
         and os.path.islink(url.object_name) 
         and not os.path.exists(url.object_name)):
