@@ -585,6 +585,11 @@ class FileWildcardIterator(WildcardIterator):
           if self.logger:
             self.logger.info('Skipping symbolic link %s...', filepath)
           continue
+        # Added for HAF's specific usecase of ignoring broken symbolic links
+        if (os.path.islink(filepath) 
+          and not os.path.exists(filepath)):
+          print("Bad link: " + url.object_name)
+          continue
         if os.path.isdir(filepath):
           yield BucketListingPrefix(expanded_url)
         else:
