@@ -717,7 +717,7 @@ def _FieldedListingIterator(cls, gsutil_api, base_url_str, desc):
     if (url.IsFileUrl() 
         and os.path.islink(url.object_name) 
         and not os.path.exists(url.object_name)):
-      print("Bad link: ".url.object_name)
+      print("Bad link: " + url.object_name)
       continue
     i += 1
     if i % _PROGRESS_REPORT_LISTING_COUNT == 0:
