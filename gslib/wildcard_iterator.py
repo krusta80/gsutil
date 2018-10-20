@@ -40,6 +40,8 @@ from gslib.utils.constants import UTF8
 from gslib.utils.text_util import FixWindowsEncodingIfNeeded
 from gslib.utils.text_util import PrintableStr
 
+# Parameter added for HAF usecase of following symbolically-linked directories
+SYMBOLIC_LINK_MAX_DEPTH = 2
 
 FLAT_LIST_REGEX = re.compile(r'(?P<before>.*?)\*\*(?P<after>.*)')
 
@@ -606,7 +608,7 @@ class FileWildcardIterator(WildcardIterator):
       directory (unicode): The path of the directory to iterate over.
       wildcard (str): The wildcard characters used for filename pattern
           matching.
-
+      
     Yields:
       (str) A string containing the path to a file somewhere under the directory
       hierarchy of `directory`.
@@ -629,7 +631,8 @@ class FileWildcardIterator(WildcardIterator):
     # originated on Windows) os.walk() will not attempt to decode and then die
     # with a "codec can't decode byte" error, and instead we can catch the error
     # at yield time and print a more informative error message.
-    for dirpath, dirnames, filenames in os.walk(directory.encode(UTF8)):
+    walk4Tuples = map(lambda x: [x[0], x[1], x[2], 0], os.walk(directory.encode(UTF8)))
+    for dirpath, dirnames, filenames, level in walk4Tuples:
       if self.logger:
         for dirname in dirnames:
           full_dir_path = os.path.join(dirpath, dirname)
