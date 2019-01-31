@@ -70,7 +70,7 @@ _STRING_TO_SIGN_FORMAT = ('{signing_algo}\n{request_time}\n{credential_scope}'
                           '\n{hashed_request}')
 _SIGNED_URL_FORMAT = ('https://{host}/{path}?x-goog-signature={sig}&'
                       '{query_string}')
-_MAX_EXPIRATION_TIME = timedelta(days=7)
+_MAX_EXPIRATION_TIME = timedelta(days=60)
 
 _SYNOPSIS = """
   gsutil signurl [-c <content_type>] [-d <duration>] [-m <http_method>] \\
